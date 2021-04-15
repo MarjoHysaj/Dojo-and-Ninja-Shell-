@@ -1,0 +1,78 @@
+>>> from dojo_ninja_app.models import*
+>>> Dojo.objects.create(name="Coding",city="Tirana",state="Albania")
+<Dojo: Dojo object (1)>
+>>> Dojo.objects.create(name="Bootcamp",city="New York",state="USA")
+<Dojo: Dojo object (2)>
+>>> Dojo.objects.create(name="Betaplan",city="Pristina",state="Kosovo")
+<Dojo: Dojo object (3)>
+>>> dojo_delete = Dojo.objects.all()
+>>> dojo_delete.delete()
+(3, {'dojo_ninja_app.Ninja': 0, 'dojo_ninja_app.Dojo': 3})
+>>> Dojo.objects.all()
+<QuerySet []>
+>>> Dojo.objects.create(name="Original",city="Tirana",state="Albania")
+<Dojo: Dojo object (4)>
+>>> delete_dojo=Dojo.objects.get(id=4)
+>>> delete_dojo.delete()
+(1, {'dojo_ninja_app.Ninja': 0, 'dojo_ninja_app.Dojo': 1})
+>>> Dojo.objects.create(name="Original",city="Tirana",state="Albania")
+<Dojo: Dojo object (5)>
+>>> Dojo.objects.create(name="Second",city="Berlin",state="Germany")
+<Dojo: Dojo object (6)>
+>>> Dojo.objects.create(name="Third",city="Pristina",state="Kosovo")
+<Dojo: Dojo object (7)>
+>>> Ninja.objects.create(dojo=Dojo.objects.get(id=5),first_name="Marjo",last_name="Hysaj")
+<Ninja: Ninja object (1)>
+>>> Ninja.objects.create(dojo=Dojo.objects.get(id=5),first_name="Denis",last_name="Hysaj")
+<Ninja: Ninja object (2)>
+>>> Ninja.objects.create(dojo=Dojo.objects.get(id=5),first_name="Ola",last_name="Hysaj")
+<Ninja: Ninja object (3)>
+>>> Ninja.objects.create(dojo=Dojo.objects.get(id=6),first_name="Olsi",last_name="Hoxha")
+<Ninja: Ninja object (4)>
+>>> Ninja.objects.create(dojo=Dojo.objects.get(id=6),first_name="Monik",last_name="Hoxha")
+<Ninja: Ninja object (5)>
+>>> Ninja.objects.create(dojo=Dojo.objects.get(id=6),first_name="Geri",last_name="Hoxha")
+<Ninja: Ninja object (6)>
+>>> Ninja.objects.create(dojo=Dojo.objects.get(id=7),first_name="Xhulio",last_name="Kazhani")
+<Ninja: Ninja object (7)>
+>>> Ninja.objects.create(dojo=Dojo.objects.get(id=7),first_name="Jurgen",last_name="Lala")
+<Ninja: Ninja object (8)>
+>>> Ninja.objects.create(dojo=Dojo.objects.get(id=7),first_name="Zenel",last_name="Lala")
+<Ninja: Ninja object (9)>
+>>> Ninja.objects.filter(dojo=Dojo.objects.get(id=5))
+<QuerySet [<Ninja: Ninja object (1)>, <Ninja: Ninja object (2)>, <Ninja: Ninja object (3)>]>
+>>> Ninja.objects.filter(dojo=Dojo.objects.last())
+<QuerySet [<Ninja: Ninja object (7)>, <Ninja: Ninja object (8)>, <Ninja: Ninja object (9)>]>
+>>> Ninja.objects.last()
+<Ninja: Ninja object (9)>
+>>> last_ninja = Ninja.objects.last()
+>>> last_ninja.dojo
+<Dojo: Dojo object (7)>
+>>> exit()
+
+(venv) C:\Users\Perdorues\Desktop\dojo_ninja\dojo_ninja>python manage.py makemigrations
+You are trying to add a non-nullable field 'desc' to dojo without a default; we can't do that (the database needs something to populate existing rows).
+Please select a fix:
+ 1) Provide a one-off default now (will be set on all existing rows with a null value for this column)
+ 2) Quit, and let me add a default in models.py
+Select an option: 1
+Please enter the default value now, as valid Python
+The datetime and django.utils.timezone modules are available, so you can do e.g. timezone.now
+Type 'exit' to exit this prompt
+>>> "old dojo"
+Migrations for 'dojo_ninja_app':
+  dojo_ninja_app\migrations\0002_dojo_desc.py
+    - Add field desc to dojo
+
+(venv) C:\Users\Perdorues\Desktop\dojo_ninja\dojo_ninja>python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, dojo_ninja_app, sessions
+Running migrations:
+  Applying dojo_ninja_app.0002_dojo_desc... OK
+(venv) C:\Users\Perdorues\Desktop\dojo_ninja\dojo_ninja>python manage.py shell
+Python 3.9.2 (tags/v3.9.2:1a79785, Feb 19 2021, 13:44:55) [MSC v.1928 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>> from dojo_ninja_app.models import *
+>>> Dojo.objects.create(name="Original",city="Tirana",state="Albania",desc="We did it!")
+<Dojo: Dojo object (8)>
